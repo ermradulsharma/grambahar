@@ -9,26 +9,42 @@
   --accent: #CC6600;
   --nature-green: #6B8E23;
   --nature-green-light: #8B9A60;
-  
+
   /* Neutral Colors */
   --background: #F8F8F8;
   --foreground: #2A2A2A;
   --surface: #F5F5DC;
   --white: #FFFFFF;
   --glass: rgba(255, 255, 255, 0.7);
-  
+
   /* Typography */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Outfit', sans-serif;
-  
+
   /* Spacing */
   --section-padding: 80px 5%;
   --container-max-width: 1200px;
-  
+
   /* Shadows & Special */
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 15px 45px rgba(111, 79, 40, 0.1);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='dark'] {
+  --background: #1A1A1A;
+  --foreground: #F5F5F5;
+  --surface: #262626;
+  --white: #121212;
+  --glass: rgba(0, 0, 0, 0.7);
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 15px 45px rgba(0, 0, 0, 0.4);
+
+  /* Adjusted Brand Colors for Dark Mode */
+  --primary: #A67C52;
+  --primary-dark: #D4AF37;
+  --secondary: #D4AF37;
+  --nature-green: #8B9A60;
 }
 
 * {
@@ -52,7 +68,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;

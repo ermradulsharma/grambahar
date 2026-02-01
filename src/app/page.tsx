@@ -19,6 +19,14 @@ const Footer = dynamic(() => import('@/components/Footer'), {
   loading: () => <div style={{ height: '300px' }} />,
 });
 
+const Testimonials = dynamic(() => import('@/components/Testimonials'), {
+  loading: () => <div style={{ height: '400px' }} />,
+});
+
+const VideoSection = dynamic(() => import('@/components/VideoSection'), {
+  loading: () => <div style={{ height: '600px' }} />,
+});
+
 export default function Home() {
   return (
     <main>
@@ -33,21 +41,21 @@ export default function Home() {
                 Handcrafted Tradition from the Heart of Bengal
               </h2>
               <p style={{ marginBottom: '20px', fontSize: '1.1rem' }}>
-                GramBahar was born out of a desire to preserve the authentic flavors of our childhood. 
-                Our Patali Gur is made using age-old techniques, tapped from date palm trees in the 
+                GramBahar was born out of a desire to preserve the authentic flavors of our childhood.
+                Our Patali Gur is made using age-old techniques, tapped from date palm trees in the
                 pristine villages of West Bengal.
               </p>
               <p style={{ marginBottom: '30px', fontSize: '1.1rem' }}>
-                We believe that food should be more than just sustenance; it should be a connection 
+                We believe that food should be more than just sustenance; it should be a connection
                 to our roots, our farmers, and our nature.
               </p>
               <a href="#contact" className="btn btn-primary">Get In Touch</a>
             </div>
             <div style={{ position: 'relative', borderRadius: '30px', overflow: 'hidden', boxShadow: 'var(--shadow-medium)' }}>
               {/* Using hero image for about as well for consistency */}
-              <Image 
-                src="/assets/hero.png" 
-                alt="Our Heritage" 
+              <Image
+                src="/assets/hero.png"
+                alt="Our Heritage"
                 width={800}
                 height={600}
                 style={{ width: '100%', height: 'auto', display: 'block' }}
@@ -57,7 +65,9 @@ export default function Home() {
         </div>
       </section>
       <Values />
+      <VideoSection />
       <Products />
+      <Testimonials />
       <section id="contact" style={{ padding: '100px 0', background: 'var(--primary-dark)', color: 'var(--white)', textAlign: 'center' }}>
         <div className="container">
           <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', marginBottom: '20px', color: 'var(--secondary)' }}>

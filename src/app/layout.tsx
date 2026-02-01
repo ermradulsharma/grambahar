@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     keywords: "Patali Gur, Jaggery, Farm Fresh, Authentic, Bengal, Natural Sweets, GramBahar",
 };
 
+import { ThemeProvider } from "@/context/ThemeContext";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -15,7 +17,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                {children}
+                <ThemeProvider>
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );

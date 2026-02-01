@@ -15,17 +15,19 @@ export default function Footer() {
             {/* Social icons can be added here */}
           </div>
         </div>
-        
+
         <div className={styles.links}>
           <h3>Our Policies</h3>
-          <ul>
-            <li><Link href="#">Privacy Policy</Link></li>
-            <li><Link href="#">Return Policy</Link></li>
-            <li><Link href="#">Shipping Policy</Link></li>
-            <li><Link href="#">Terms of Service</Link></li>
+          <ul className={styles.footerList}>
+            <li><Link href="/policy/privacy-policy">Privacy Policy</Link></li>
+            <li><Link href="/policy/return-policy">Return Policy</Link></li>
+            <li><Link href="/policy/refund-cancellation-policy">Refund/Cancellation Policy</Link></li>
+            <li><Link href="/policy/shipping-policy">Shipping Policy</Link></li>
+            <li><Link href="/policy/cookie-policy">Cookie Policy</Link></li>
+            <li><Link href="/policy/terms-of-services">Terms of Services</Link></li>
           </ul>
         </div>
-        
+
         <div className={styles.links}>
           <h3>Quick Links</h3>
           <ul>
@@ -35,7 +37,7 @@ export default function Footer() {
             <li><Link href="#">Wholesale</Link></li>
           </ul>
         </div>
-        
+
         <div className={styles.contact}>
           <h3>Contact Us</h3>
           <p>Ranaghat, Nadia, WB, IN</p>
