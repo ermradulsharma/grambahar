@@ -3,45 +3,47 @@
 import React from 'react';
 
 interface Tab {
-  id: string;
-  label: string;
+    id: string;
+    label: string;
 }
 
 interface TabsProps {
-  tabs: Tab[];
-  activeTab: string;
-  onChange: (id: string) => void;
+    tabs: Tab[];
+    activeTab: string;
+    onChange: (id: string) => void;
 }
 
 export default function Tabs({ tabs, activeTab, onChange }: TabsProps) {
-  return (
-    <div style={{
-      display: 'flex',
-      gap: '20px',
-      borderBottom: '1px solid #e0e0e0',
-      marginBottom: '20px',
-      padding: '0 10px'
-    }}>
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => onChange(tab.id)}
-          style={{
-            padding: '12px 20px',
-            background: 'none',
-            border: 'none',
-            borderBottom: activeTab === tab.id ? '3px solid var(--secondary)' : '3px solid transparent',
-            color: activeTab === tab.id ? 'var(--primary-dark)' : '#666',
-            fontWeight: activeTab === tab.id ? '600' : '400',
-            cursor: 'pointer',
-            fontSize: '1rem',
-            transition: 'all 0.2s ease',
-            marginBottom: '-1px'
-          }}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
-  );
+    return (
+        <div style={{
+            display: 'flex',
+            gap: '4px',
+            background: 'var(--slate-100)',
+            padding: '4px',
+            borderRadius: '10px',
+            marginBottom: '32px',
+            width: 'fit-content'
+        }}>
+            {tabs.map((tab) => (
+                <button
+                    key={tab.id}
+                    onClick={() => onChange(tab.id)}
+                    style={{
+                        padding: '8px 16px',
+                        background: activeTab === tab.id ? 'var(--surface)' : 'transparent',
+                        border: 'none',
+                        borderRadius: '8px',
+                        color: activeTab === tab.id ? 'var(--foreground)' : 'var(--slate-500)',
+                        fontWeight: activeTab === tab.id ? '600' : '500',
+                        cursor: 'pointer',
+                        fontSize: '0.85rem',
+                        transition: 'all 0.15s ease',
+                        boxShadow: activeTab === tab.id ? '0 1px 2px rgba(0,0,0,0.05)' : 'none',
+                    }}
+                >
+                    {tab.label}
+                </button>
+            ))}
+        </div>
+    );
 }

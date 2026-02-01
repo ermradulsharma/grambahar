@@ -2,6 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { Download } from 'lucide-react';
 
 const Card = dynamic(() => import('../../ui/base/Card'));
 const Button = dynamic(() => import('../../ui/base/Button'));
@@ -17,7 +18,7 @@ export default function ReportsView() {
     return (
         <div style={{ padding: '20px 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
-                <h3 style={{ color: 'var(--primary)' }}>Sales & Financial Reports</h3>
+                <h3 style={{ color: 'var(--foreground)' }}>Sales & Financial Reports</h3>
                 <Button variant="outline" style={{ fontSize: '0.8rem' }}>Export All Data (CSV)</Button>
             </div>
 
@@ -49,8 +50,14 @@ export default function ReportsView() {
                         <td style={{ fontWeight: '600' }}>{r.sales}</td>
                         <td>{r.orders}</td>
                         <td>
-                            <button style={{ color: 'var(--accent)', cursor: 'pointer', border: 'none', background: 'none', fontWeight: '600' }}>
-                                Download PDF
+                            <button
+                                onClick={() => alert(`Downloading report for ${r.month}...`)}
+                                title="Download PDF"
+                                style={{ color: 'var(--slate-500)', cursor: 'pointer', border: 'none', background: 'none', transition: 'color 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                onMouseOver={(e) => e.currentTarget.style.color = 'var(--primary)'}
+                                onMouseOut={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                            >
+                                <Download size={18} />
                             </button>
                         </td>
                     </tr>

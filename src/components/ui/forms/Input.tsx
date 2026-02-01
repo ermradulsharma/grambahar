@@ -7,22 +7,24 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function Input({ label, error, style, ...props }: InputProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
-      {label && <label style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--primary-dark)' }}>{label}</label>}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%' }}>
+      {label && <label style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--foreground)' }}>{label}</label>}
       <input
         style={{
-          padding: '12px 16px',
-          borderRadius: '10px',
-          border: error ? '1.5px solid #c62828' : '1.5px solid #e0e0e0',
-          fontSize: '1rem',
+          padding: '10px 14px',
+          borderRadius: '8px',
+          border: error ? '1px solid #dc2626' : '1px solid var(--border-medium)',
+          fontSize: '0.9rem',
           outline: 'none',
-          transition: 'var(--transition)',
-          backgroundColor: '#fff',
+          transition: 'border-color 0.2s ease',
+          backgroundColor: 'var(--surface)',
+          color: 'var(--foreground)',
+          width: '100%',
           ...style
         }}
         {...props}
       />
-      {error && <span style={{ fontSize: '0.8rem', color: '#c62828' }}>{error}</span>}
+      {error && <span style={{ fontSize: '0.8rem', color: '#dc2626' }}>{error}</span>}
     </div>
   );
 }

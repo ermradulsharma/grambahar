@@ -9,11 +9,11 @@ interface CardProps {
 export default function Card({ children, padding = '24px', style }: CardProps) {
   return (
     <div style={{
-      background: 'var(--white)',
+      background: 'var(--surface)',
       padding: padding,
-      borderRadius: '16px',
-      boxShadow: 'var(--shadow-soft)',
-      borderBottom: '3px solid var(--secondary)',
+      borderRadius: '12px',
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+      border: '1px solid var(--border-light)',
       height: '100%',
       ...style
     }}>
