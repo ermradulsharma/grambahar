@@ -1,0 +1,92 @@
+.products {
+    padding: 100px 0;
+    background: var(--background);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-medium);
+}
+
+.badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--accent);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 5;
+}
+
+.imageWrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+    background: var(--surface);
+}
+
+.image {
+    object-fit: contain;
+    padding: 20px;
+}
+
+.info {
+    padding: 30px;
+    text-align: center;
+}
+
+.weight {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info h3 {
+    margin: 10px 0 15px;
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+}
+
+.pricing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.originalPrice {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 1rem;
+}
+
+.buyBtn {
+    width: 100%;
+}
