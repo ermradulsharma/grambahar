@@ -1,92 +1,178 @@
 .products {
-    padding: 100px 0;
-    background: var(--background);
+  padding: 90px 0;
+  background: var(--surface);
+}
+
+.titleArea {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px;
+}
+
+.category {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: var(--primary-dark);
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
 }
 
 .card {
-    background: var(--white);
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    transition: var(--transition);
-    box-shadow: var(--shadow-soft);
+  background: var(--background);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-medium);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
 }
 
 .badge {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: var(--accent);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    z-index: 5;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #e11d48;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  z-index: 5;
+  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
 }
 
 .imageWrapper {
-    position: relative;
-    height: 250px;
-    width: 100%;
-    background: var(--surface);
+  position: relative;
+  width: 100%;
+  height: 280px;
+  background: #fff;
 }
 
-.image {
-    object-fit: contain;
-    padding: 20px;
+.productImage {
+  object-fit: cover;
 }
 
 .info {
-    padding: 30px;
-    text-align: center;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .weight {
-    font-size: 0.85rem;
-    color: var(--primary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--slate-500);
+  margin-bottom: 6px;
 }
 
-.info h3 {
-    margin: 10px 0 15px;
-    color: var(--primary-dark);
-    font-size: 1.4rem;
+.productTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 12px;
+  line-height: 1.35;
 }
 
 .pricing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .price {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary-dark);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
 }
 
 .originalPrice {
-    text-decoration: line-through;
-    color: #999;
-    font-size: 1rem;
+  font-size: 1.05rem;
+  color: var(--slate-400);
+  text-decoration: line-through;
 }
 
-.buyBtn {
-    width: 100%;
+.bestPriceTag {
+  display: inline-block;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  align-self: flex-start;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.qtyControl {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.qtyBtn {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--foreground);
+}
+
+.qtyVal {
+  padding: 0 6px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+.addBtn {
+  flex: 1;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.addBtn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
 }
