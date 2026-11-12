@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Sidebar from '@/components/admin/layout/Sidebar';
-import styles from './admin.module.css';
+import styles from '@/components/admin/admin.module.css';
 
 // Dynamic imports for core layout
 const AdminHeader = dynamic(() => import('@/components/admin/layout/AdminHeader'));

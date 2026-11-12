@@ -1,4 +1,4 @@
-import styles from '@/app/admin/admin.module.css';
+import styles from '@/components/admin/admin.module.css';
 
 export default function AdminFooter() {
     return (

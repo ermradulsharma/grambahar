@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/app/admin/admin.module.css';
+import styles from '@/components/admin/admin.module.css';
 
 interface TableProps {
     headers: string[];
