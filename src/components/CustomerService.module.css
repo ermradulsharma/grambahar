@@ -1,5 +1,5 @@
 .serviceSection {
-  padding: 80px 0;
+  padding: 88px 0;
   background: var(--surface);
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
@@ -9,7 +9,7 @@
   background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
   border: 1px solid var(--border-medium);
   border-radius: 24px;
-  padding: 50px 40px;
+  padding: 54px 44px;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 50px;
@@ -19,17 +19,21 @@
 
 .heading {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  font-weight: 700;
   color: var(--primary-dark);
-  margin-bottom: 16px;
-  line-height: 1.25;
+  margin-bottom: 18px;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
 }
 
 .description {
+  font-family: var(--font-body);
   font-size: 1.05rem;
+  font-weight: 400;
   color: var(--slate-600);
-  line-height: 1.6;
-  margin-bottom: 25px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: 28px;
 }
 
 .ctaGroup {
@@ -44,16 +48,20 @@
   gap: 8px;
   background: var(--primary);
   color: #fff;
-  padding: 12px 24px;
-  border-radius: 30px;
+  padding: 12px 26px;
+  border-radius: 50px;
   text-decoration: none;
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
   transition: all 0.2s;
 }
 
 .phoneBtn:hover {
   background: var(--primary-dark);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
 }
 
 .whatsappBtn {
@@ -62,16 +70,21 @@
   gap: 8px;
   background: #25D366;
   color: #fff;
-  padding: 12px 24px;
-  border-radius: 30px;
+  padding: 12px 26px;
+  border-radius: 50px;
   text-decoration: none;
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
   transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
 }
 
 .whatsappBtn:hover {
   background: #1eb954;
   transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
 }
 
 .featureList {
@@ -85,9 +98,11 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--foreground);
+  line-height: 1.4;
 }
 
 .checkIcon {
@@ -105,8 +120,7 @@
 @media (max-width: 868px) {
   .box {
     grid-template-columns: 1fr;
-    gap: 35px;
-    padding: 35px 25px;
+    gap: 36px;
+    padding: 36px 24px;
   }
 }
-
