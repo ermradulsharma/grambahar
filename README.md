@@ -74,61 +74,6 @@ src/
 └── public/               # Static assets (Images, Lottie)
 ```
 
-src => app => admin
-
-
-
-
-src/
-├── app/
-│   ├── admin/
-│   │     ├── layout.tsx               
-│   │     ├── page.tsx
-│   │     ├── [slug]/
-│   │     │     └── page.tsx
-│   │
-│   ├── (public)/
-│   │   ├── layout.tsx               
-│   │   ├── page.tsx
-│   │   ├── [slug]/
-│   │         └── page.tsx
-│   │
-│   ├── favicon.ico
-│   ├── globals.css
-│   └── layout.tsx
-│
-├── components/
-│   ├── admin/
-│   │   ├── content/
-│   │   ├── customers/
-│   │   ├── layout/
-│   │   ├── orders/
-│   │   ├── overview/
-│   │   ├── products/
-│   │   ├── settings/
-│   │   └── admin.module.css
-│   │
-│   ├── public/
-│   │   ├── layout/
-│   │   ├── storefront/
-│   │   ├── cart/
-│   │   └── index.ts
-│   │
-│   └── ui/
-│       ├── base/
-│       ├── data/
-│       ├── feedback/
-│       ├── forms/
-│       └── navigation/
-│
-├── context/
-│   ├── CartContext.tsx
-│   └── ThemeContext.tsx
-│
-└── data/
-    ├── siteData.ts
-    └── policyData.ts
-
 ## 📜 License
 
 Distributed under the MIT License. See `LICENSE` for more information.

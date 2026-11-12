@@ -25,6 +25,15 @@
         "paths": {
             "@/*": [
                 "./src/*"
+            ],
+            "@/components/*": [
+                "./src/app/components/*"
+            ],
+            "@/context/*": [
+                "./src/app/(public)/context/*"
+            ],
+            "@/data/*": [
+                "./src/app/(public)/data/*"
             ]
         }
     },
