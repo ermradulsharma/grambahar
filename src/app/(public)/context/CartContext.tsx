@@ -7,7 +7,9 @@ import {
   getWhatsAppUrl,
   safeGetStorage,
   safeSetStorage,
-  CustomerInfo
+  CustomerInfo,
+  createMockOrder,
+  formatPrice
 } from '@/core/Helpers';
 
 export interface CartItem {
@@ -101,6 +103,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const message = buildWhatsAppOrderMessage(items, customer, subtotal, totalSavings);
     const whatsappUrl = getWhatsAppUrl(message);
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    // Register simulated order and trigger atomic inventory deduction
+    createMockOrder({
+      customer: customer.name,
+      product: items.map(i => `${i.product.name} (${i.quantity}x)`).join(', '),
+      amount: formatPrice(subtotal),
+      quantity: totalItems
+    });
+
+    clearCart();
+    closeCart();
   };
 
   return (
