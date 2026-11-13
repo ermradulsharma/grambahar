@@ -1,111 +1,128 @@
+import { useState } from 'react';
 import styles from '@/components/admin/admin.module.css';
+import { useTheme } from '@/context/ThemeContext';
+import { Sun, Moon, User, LogOut, Bell } from 'lucide-react';
 
 interface AdminHeaderProps {
     activeTab: string;
 }
-
-import { useState } from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import { Sun, Moon, User, LogOut, Bell } from 'lucide-react';
 
 export default function AdminHeader({ activeTab }: AdminHeaderProps) {
     const { theme, toggleTheme, mounted } = useTheme();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
+    const formatTabTitle = (tab: string) => {
+        return tab.charAt(0).toUpperCase() + tab.slice(1).replace(/([A-Z])/g, ' $1');
+    };
+
     return (
         <header className={styles.fixedHeader}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <h1 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--foreground)', letterSpacing: '-0.3px' }}>
-                    {activeTab.charAt(0).toUpperCase() + activeTab.slice(1).replace(/([A-Z])/g, ' $1')}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <h1 className={styles.headerTitle}>
+                    {formatTabTitle(activeTab)}
                 </h1>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <button onClick={toggleTheme}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                {/* Theme Toggle */}
+                <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle Dark / Light Theme"
                     style={{
                         background: 'var(--surface)',
-                        width: '36px',
-                        height: '36px',
+                        width: '38px',
+                        height: '38px',
                         borderRadius: '8px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: '1px solid var(--border-light)',
-                        color: 'var(--slate-500)',
+                        color: 'var(--slate-600)',
                         cursor: 'pointer',
-                        transition: 'all 0.2s ease'
+                        transition: 'all 0.15s ease'
                     }}
                 >
                     {!mounted ? <div style={{ width: '18px', height: '18px' }} /> : (theme === 'light' ? <Moon size={18} /> : <Sun size={18} />)}
                 </button>
 
+                {/* Notifications Button */}
                 <div style={{ position: 'relative' }}>
                     <button
                         onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                        aria-label="View notifications"
                         style={{
                             background: 'var(--surface)',
-                            width: '36px',
-                            height: '36px',
+                            width: '38px',
+                            height: '38px',
                             borderRadius: '8px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             border: '1px solid var(--border-light)',
-                            color: 'var(--slate-500)',
+                            color: 'var(--slate-600)',
                             cursor: 'pointer',
-                            transition: 'all 0.2s ease',
+                            transition: 'all 0.15s ease',
                             position: 'relative'
                         }}
                     >
                         <Bell size={18} />
                         <span style={{
                             position: 'absolute',
-                            top: '-2px',
-                            right: '-2px',
-                            width: '8px',
-                            height: '8px',
+                            top: '8px',
+                            right: '8px',
+                            width: '7px',
+                            height: '7px',
                             background: '#ef4444',
                             borderRadius: '50%',
-                            border: '2px solid var(--surface)'
+                            border: '1.5px solid var(--surface)'
                         }} />
                     </button>
 
                     {isNotificationsOpen && (
                         <div style={{
                             position: 'absolute',
-                            top: '120%',
+                            top: '125%',
                             right: 0,
-                            width: '280px',
+                            width: '300px',
                             background: 'var(--surface)',
                             border: '1px solid var(--border-light)',
                             borderRadius: '12px',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                            zIndex: 100
+                            boxShadow: 'var(--shadow-soft)',
+                            zIndex: 100,
+                            overflow: 'hidden'
                         }}>
                             <div style={{
-                                padding: '12px',
+                                padding: '14px 16px',
                                 borderBottom: '1px solid var(--border-light)',
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center'
                             }}>
-                                <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>Notifications</span>
-                                <button style={{ fontSize: '0.75rem', color: 'var(--primary)', background: 'none', border: 'none', cursor: 'pointer' }}>
-                                    Mark all as read
+                                <span style={{ fontSize: '0.875rem', fontWeight: '700', color: 'var(--foreground)' }}>Notifications</span>
+                                <button
+                                    onClick={() => setIsNotificationsOpen(false)}
+                                    style={{ fontSize: '0.75rem', color: 'var(--primary)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '600' }}
+                                >
+                                    Dismiss
                                 </button>
                             </div>
                             <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                                {[1, 2, 3].map((_, i) => (
+                                {[
+                                    { title: 'New Order Received', desc: 'Order #GB-1004 from Sneha Roy', time: '10m ago' },
+                                    { title: 'Low Stock Alert', desc: 'Super Saver Combo is below 10 units', time: '1h ago' },
+                                    { title: 'Weekly Report Ready', desc: 'January revenue report has been compiled', time: '1d ago' },
+                                ].map((item, i) => (
                                     <div key={i} style={{
-                                        padding: '12px',
+                                        padding: '12px 16px',
                                         borderBottom: '1px solid var(--border-light)',
                                         cursor: 'pointer',
-                                        background: i === 0 ? 'var(--bg-light)' : 'transparent'
+                                        background: i === 0 ? 'var(--bg-light)' : 'transparent',
+                                        transition: 'background 0.15s ease'
                                     }}>
-                                        <div style={{ fontSize: '0.85rem', fontWeight: '500', marginBottom: '4px' }}>New Order Received</div>
-                                        <div style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>Order #1234 from John Doe</div>
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--slate-400)', marginTop: '4px' }}>2 mins ago</div>
+                                        <div style={{ fontSize: '0.8125rem', fontWeight: '600', color: 'var(--foreground)', marginBottom: '2px' }}>{item.title}</div>
+                                        <div style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>{item.desc}</div>
+                                        <div style={{ fontSize: '0.6875rem', color: 'var(--slate-400)', marginTop: '4px' }}>{item.time}</div>
                                     </div>
                                 ))}
                             </div>
@@ -113,56 +130,61 @@ export default function AdminHeader({ activeTab }: AdminHeaderProps) {
                     )}
                 </div>
 
+                {/* User Profile Menu */}
                 <div style={{ position: 'relative' }}>
                     <button
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        aria-label="User Account Menu"
                         style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '12px',
-                            paddingLeft: '20px',
-                            border: 'none',
-                            borderLeft: '1px solid var(--border-light)',
-                            cursor: 'pointer',
-                            textAlign: 'left'
+                            gap: '10px',
+                            padding: '4px 8px',
+                            borderRadius: '8px',
+                            border: '1px solid var(--border-light)',
+                            background: 'var(--surface)',
+                            cursor: 'pointer'
                         }}
                     >
                         <div style={{
-                            width: '36px',
-                            height: '36px',
-                            borderRadius: '8px',
-                            background: 'var(--slate-800)',
-                            color: '#fff',
+                            width: '30px',
+                            height: '30px',
+                            borderRadius: '6px',
+                            background: 'var(--primary-dark)',
+                            color: '#ffffff',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontWeight: '700',
-                            fontSize: '0.8rem'
+                            fontSize: '0.75rem'
                         }}>
-                            SU
+                            GB
+                        </div>
+                        <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontSize: '0.8125rem', fontWeight: '600', color: 'var(--foreground)' }}>Admin</span>
                         </div>
                     </button>
 
                     {isDropdownOpen && (
                         <div style={{
                             position: 'absolute',
-                            top: '120%',
+                            top: '125%',
                             right: 0,
-                            width: '200px',
+                            width: '220px',
                             background: 'var(--surface)',
                             border: '1px solid var(--border-light)',
                             borderRadius: '12px',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                            boxShadow: 'var(--shadow-soft)',
                             padding: '8px',
                             zIndex: 100
                         }}>
                             <div style={{
-                                padding: '12px',
+                                padding: '10px 12px',
                                 borderBottom: '1px solid var(--border-light)',
-                                marginBottom: '8px'
+                                marginBottom: '6px'
                             }}>
-                                <div style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--foreground)' }}>Super User</div>
-                                <div style={{ fontSize: '0.8rem', color: 'var(--slate-500)' }}>admin@grambahar.com</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--foreground)' }}>GramBahar Admin</div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>admin@grambahar.com</div>
                             </div>
 
                             <button
@@ -171,20 +193,21 @@ export default function AdminHeader({ activeTab }: AdminHeaderProps) {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '10px',
-                                    padding: '10px',
-                                    borderRadius: '8px',
+                                    padding: '8px 12px',
+                                    borderRadius: '6px',
                                     border: 'none',
                                     background: 'transparent',
                                     color: 'var(--foreground)',
                                     cursor: 'pointer',
-                                    fontSize: '0.9rem',
-                                    transition: 'background 0.2s'
+                                    fontSize: '0.8125rem',
+                                    fontWeight: '500',
+                                    transition: 'background 0.15s ease'
                                 }}
                                 onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bg-light)'}
                                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                             >
-                                <User size={16} />
-                                Profile
+                                <User size={15} />
+                                Profile Settings
                             </button>
 
                             <button
@@ -193,21 +216,22 @@ export default function AdminHeader({ activeTab }: AdminHeaderProps) {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '10px',
-                                    padding: '10px',
-                                    borderRadius: '8px',
+                                    padding: '8px 12px',
+                                    borderRadius: '6px',
                                     border: 'none',
                                     background: 'transparent',
                                     color: '#ef4444',
                                     cursor: 'pointer',
-                                    fontSize: '0.9rem',
+                                    fontSize: '0.8125rem',
+                                    fontWeight: '500',
                                     marginTop: '4px',
-                                    transition: 'background 0.2s'
+                                    transition: 'background 0.15s ease'
                                 }}
                                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'}
                                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                             >
-                                <LogOut size={16} />
-                                Logout
+                                <LogOut size={15} />
+                                Sign Out
                             </button>
                         </div>
                     )}

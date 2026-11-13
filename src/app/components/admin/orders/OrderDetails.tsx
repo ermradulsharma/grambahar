@@ -3,6 +3,7 @@
 import React from 'react';
 import { ArrowLeft, Printer, Truck, CreditCard, User, Package, MapPin, Phone, Mail } from 'lucide-react';
 import { Card, Button, Badge, Table } from '@/components/ui';
+import styles from '@/components/admin/admin.module.css';
 
 interface OrderDetailsProps {
     orderId: string;
@@ -36,18 +37,18 @@ export default function OrderDetails({ orderId, onBack }: OrderDetailsProps) {
     return (
         <div style={{ animation: 'fadeIn 0.3s ease-in-out' }}>
             {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
+            <div className={styles.sectionHeader}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                     <Button variant="outline" onClick={onBack} style={{ padding: '8px 12px' }}>
-                        <ArrowLeft size={18} /> Back
+                        <ArrowLeft size={16} /> Back
                     </Button>
                     <div>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--foreground)', marginBottom: '4px' }}>
+                        <h2 className={styles.sectionHeading}>
                             Order {orderId}
                         </h2>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: 'var(--slate-500)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8125rem', color: 'var(--slate-500)', marginTop: '2px' }}>
                             <span>Placed on {order.date}</span>
-                            <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#cbd5e1' }}></span>
+                            <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--border-medium)' }}></span>
                             <Badge variant="success">{order.status}</Badge>
                         </div>
                     </div>

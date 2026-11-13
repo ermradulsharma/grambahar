@@ -2,16 +2,20 @@
 
 import React from 'react';
 import { Card, Input, Button } from '@/components/ui';
+import styles from '@/components/admin/admin.module.css';
 
 import { Save, RefreshCw, Shield, Bell, ShoppingBag, Globe, Lock, AlertTriangle, CreditCard, Users, Database, Download, FileText, Mail, Palette, Smartphone, Truck, Scale, MessageSquare } from 'lucide-react';
 
 export default function SettingsManager() {
     return (
-        <div style={{ marginTop: '20px', paddingBottom: '40px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <h2 style={{ color: 'var(--primary-dark)', margin: 0 }}>Site Global Settings</h2>
+        <div style={{ marginTop: '8px', paddingBottom: '40px' }}>
+            <div className={styles.sectionHeader}>
+                <div>
+                    <h2 className={styles.sectionHeading}>Site Global Settings</h2>
+                    <p className={styles.sectionSubheading}>Configure SEO, store policies, notifications, and security protocols</p>
+                </div>
                 <Button style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Save size={18} /> Save All Changes
+                    <Save size={16} /> Save All Changes
                 </Button>
             </div>
 

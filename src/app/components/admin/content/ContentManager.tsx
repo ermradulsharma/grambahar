@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 
 import { Card, Input, Button, Tabs, Table, Modal, Badge } from '@/components/ui';
+import styles from '@/components/admin/admin.module.css';
 
 export default function ContentManager() {
     const [activeTab, setActiveTab] = useState('hero');
@@ -117,18 +118,18 @@ export default function ContentManager() {
     ];
 
     return (
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+        <div style={{ marginTop: '8px' }}>
+            <div className={styles.sectionHeader}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--foreground)', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+                    <h2 className={styles.sectionHeading}>
                         Content Management
                     </h2>
-                    <div style={{ fontSize: '0.875rem', color: 'var(--slate-500)' }}>
-                        Manage website sections, media and policies
-                    </div>
+                    <p className={styles.sectionSubheading}>
+                        Manage landing page hero text, seasonal banners, customer reviews, and legal policies
+                    </p>
                 </div>
             </div>
-            <Card padding="40px">
+            <Card padding="32px">
                 <Tabs tabs={contentTabs} activeTab={activeTab} onChange={setActiveTab} />
 
                 {activeTab === 'hero' && (

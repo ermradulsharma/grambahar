@@ -8,17 +8,19 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export default function Button({ variant = 'primary', children, style, ...props }: ButtonProps) {
     const getStyles = () => {
         const baseStyle: React.CSSProperties = {
-            padding: '10px 20px',
+            padding: '8px 16px',
             borderRadius: '8px',
-            fontWeight: '600',
+            fontWeight: 600,
             cursor: 'pointer',
-            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
             border: '1px solid transparent',
-            fontSize: '0.875rem',
+            fontSize: '0.8125rem',
+            letterSpacing: '-0.01em',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
+            fontFamily: 'inherit',
             ...style
         };
 
@@ -27,14 +29,14 @@ export default function Button({ variant = 'primary', children, style, ...props 
                 return {
                     ...baseStyle,
                     background: 'var(--primary)',
-                    color: '#fff',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    color: '#ffffff',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.08)'
                 };
             case 'secondary':
                 return {
                     ...baseStyle,
-                    background: 'var(--slate-100)',
-                    color: 'var(--slate-700)',
+                    background: 'var(--bg-light)',
+                    color: 'var(--foreground)',
                     border: '1px solid var(--border-light)'
                 };
             case 'outline':
@@ -42,7 +44,7 @@ export default function Button({ variant = 'primary', children, style, ...props 
                     ...baseStyle,
                     background: 'transparent',
                     border: '1px solid var(--border-medium)',
-                    color: 'var(--slate-600)'
+                    color: 'var(--foreground)'
                 };
             default:
                 return baseStyle;

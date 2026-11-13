@@ -1,14 +1,21 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
+
+interface DropdownOption {
+  label: string;
+  value: string;
+}
 
 interface DropdownProps {
   label: string;
-  options: { label: string; value: string }[];
+  options: DropdownOption[];
   onSelect: (value: string) => void;
+  value?: string;
 }
 
-export default function Dropdown({ label, options, onSelect }: DropdownProps) {
+export default function Dropdown({ label, options, onSelect, value }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,56 +29,79 @@ export default function Dropdown({ label, options, onSelect }: DropdownProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const activeOption = options.find(opt => opt.value === value);
+
   return (
     <div ref={containerRef} style={{ position: 'relative', display: 'inline-block' }}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         style={{
-          padding: '10px 20px',
-          borderRadius: '50px',
+          padding: '8px 14px',
+          borderRadius: '8px',
           background: 'var(--surface)',
-          border: '1px solid #ddd',
+          border: '1px solid var(--border-medium)',
           cursor: 'pointer',
-          display: 'flex',
+          display: 'inline-flex',
           alignItems: 'center',
           gap: '8px',
-          fontWeight: '500'
+          fontWeight: 500,
+          fontSize: '0.8125rem',
+          color: 'var(--foreground)',
+          transition: 'all 0.15s ease'
         }}
       >
-        {label} <span style={{ fontSize: '0.7rem' }}>{isOpen ? '▲' : '▼'}</span>
+        <span>{activeOption ? activeOption.label : label}</span>
+        <ChevronDown
+          size={14}
+          style={{
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.2s ease',
+            color: 'var(--slate-500)'
+          }}
+        />
       </button>
 
       {isOpen && (
         <div style={{
           position: 'absolute',
-          top: '110%',
+          top: 'calc(100% + 4px)',
           left: 0,
-          background: '#fff',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-          borderRadius: '12px',
-          zIndex: 10,
+          background: 'var(--surface)',
+          border: '1px solid var(--border-light)',
+          boxShadow: 'var(--shadow-soft)',
+          borderRadius: '8px',
+          zIndex: 50,
           minWidth: '160px',
           overflow: 'hidden',
-          padding: '8px'
+          padding: '4px'
         }}>
           {options.map((option) => (
-            <div
+            <button
               key={option.value}
+              type="button"
               onClick={() => {
                 onSelect(option.value);
                 setIsOpen(false);
               }}
               style={{
-                padding: '10px 15px',
+                width: '100%',
+                textAlign: 'left',
+                padding: '8px 12px',
                 cursor: 'pointer',
-                borderRadius: '8px',
-                transition: 'background 0.2s'
+                borderRadius: '6px',
+                border: 'none',
+                background: option.value === value ? 'var(--bg-light)' : 'transparent',
+                color: 'var(--foreground)',
+                fontSize: '0.8125rem',
+                fontWeight: option.value === value ? 600 : 400,
+                transition: 'background 0.15s ease'
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = '#f5f5f5')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--bg-light)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = option.value === value ? 'var(--bg-light)' : 'transparent')}
             >
               {option.label}
-            </div>
+            </button>
           ))}
         </div>
       )}

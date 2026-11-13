@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Table, SearchInput, Badge, Dropdown } from '@/components/ui';
 import { MOCK_ADMIN_ORDERS, AdminOrder } from '@/core/Helpers';
+import styles from '@/components/admin/admin.module.css';
 
 const OrderDetails = dynamic(() => import('./OrderDetails'));
 
@@ -30,16 +31,20 @@ export default function OrderManager() {
   }
 
   return (
-    <div style={{ marginTop: '20px', animation: 'fadeIn 0.3s ease-in-out' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px', flexWrap: 'wrap', gap: '20px' }}>
-        <h2 style={{ color: 'var(--foreground)', fontSize: '1.5rem', fontWeight: '700' }}>Order Fulfillment Center</h2>
-        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+    <div style={{ marginTop: '8px', animation: 'fadeIn 0.3s ease-in-out' }}>
+      <div className={styles.sectionHeader}>
+        <div>
+          <h2 className={styles.sectionHeading}>Order Fulfillment Center</h2>
+          <p className={styles.sectionSubheading}>Manage customer orders, track payments, and verify deliveries</p>
+        </div>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
           <SearchInput
             placeholder="Search by Order ID, Customer..."
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
           />
           <Dropdown
             label="Filter Status"
+            value={statusFilter}
             options={[
               { label: 'All Statuses', value: 'all' },
               { label: 'Paid', value: 'paid' },

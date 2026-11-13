@@ -20,6 +20,15 @@
     --slate-800: #1e293b;
     --slate-900: #0f172a;
 
+    /* Admin Dashboard & Sidebar Tokens (Light Mode) */
+    --sidebar-bg: #0f172a;
+    --sidebar-text: #94a3b8;
+    --sidebar-text-hover: #ffffff;
+    --sidebar-active: rgba(212, 175, 55, 0.16);
+    --sidebar-active-text: #f8fafc;
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --bg-light: var(--slate-100);
+
     /* Semantic Tokens */
     --background: var(--slate-50);
     --foreground: var(--slate-900);
@@ -78,6 +87,15 @@
     --glass: rgba(15, 23, 42, 0.85);
     --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
     --shadow-medium: 0 12px 36px rgba(0, 0, 0, 0.6);
+
+    /* Admin Dashboard & Sidebar Tokens (Dark Mode) */
+    --sidebar-bg: #0b1120;
+    --sidebar-text: #94a3b8;
+    --sidebar-text-hover: #ffffff;
+    --sidebar-active: rgba(212, 175, 55, 0.22);
+    --sidebar-active-text: #f8fafc;
+    --sidebar-border: rgba(51, 65, 85, 0.4);
+    --bg-light: #1e293b;
 
     /* Adjusted Brand Colors for Dark Mode Contrast */
     --primary: #D4AF37;

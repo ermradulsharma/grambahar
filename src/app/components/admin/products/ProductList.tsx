@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Table, Button, Modal, Badge, Input, SearchInput, Tooltip } from '@/components/ui';
 import { MOCK_ADMIN_INVENTORY, AdminInventoryItem } from '@/core/Helpers';
+import styles from '@/components/admin/admin.module.css';
 
 export default function ProductList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,10 +18,13 @@ export default function ProductList() {
   );
 
   return (
-    <div style={{ marginTop: '30px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px', flexWrap: 'wrap', gap: '20px' }}>
-        <h2 style={{ color: 'var(--primary-dark)' }}>Product Inventory</h2>
-        <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+    <div style={{ marginTop: '8px' }}>
+      <div className={styles.sectionHeader}>
+        <div>
+          <h2 className={styles.sectionHeading}>Product Inventory</h2>
+          <p className={styles.sectionSubheading}>Manage artisanal Patali Gur batches, stock levels, and catalog prices</p>
+        </div>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
           <SearchInput
             placeholder="Filter products..."
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Table, SearchInput, Badge, Button } from '@/components/ui';
 import { MOCK_ADMIN_CUSTOMERS, AdminCustomer } from '@/core/Helpers';
+import styles from '@/components/admin/admin.module.css';
 
 const CustomerDetails = dynamic(() => import('./CustomerDetails'));
 
@@ -24,11 +25,14 @@ export default function CustomerList() {
     }
 
     return (
-        <div style={{ marginTop: '20px', animation: 'fadeIn 0.3s ease-in-out' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px', flexWrap: 'wrap', gap: '15px' }}>
-                <h2 style={{ color: 'var(--foreground)', fontSize: '1.5rem', fontWeight: '700' }}>Customer Management</h2>
+        <div style={{ marginTop: '8px', animation: 'fadeIn 0.3s ease-in-out' }}>
+            <div className={styles.sectionHeader}>
+                <div>
+                    <h2 className={styles.sectionHeading}>Customer Management</h2>
+                    <p className={styles.sectionSubheading}>View registered buyers, order frequencies, and lifetime customer value</p>
+                </div>
                 <SearchInput
-                    placeholder="Find customers..."
+                    placeholder="Find customers by name, email..."
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 />
             </div>

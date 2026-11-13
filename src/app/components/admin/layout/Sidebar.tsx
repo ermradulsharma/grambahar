@@ -38,7 +38,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
         <aside className={styles.sidebar}>
             <div className={styles.logoArea}>
                 <div className={styles.logo}>
-                    <span style={{ color: 'var(--secondary)' }}>Gram</span>Bahar
+                    <span style={{ color: 'var(--secondary)' }}>Gram</span>Bahaar
                 </div>
             </div>
             <nav className={styles.nav}>
@@ -46,22 +46,25 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
                     <React.Fragment key={group.title}>
                         <div className={styles.navGroup}>{group.title}</div>
                         {group.items.map((item) => (
-                            <div
+                            <button
                                 key={item.id}
+                                type="button"
                                 className={`${styles.navItem} ${activeTab === item.id ? styles.navItemActive : ''}`}
                                 onClick={() => setActiveTab(item.id)}
+                                style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left' }}
                             >
                                 <span className={styles.navIcon}>
-                                    <item.icon size={18} strokeWidth={2.5} />
+                                    <item.icon size={18} strokeWidth={activeTab === item.id ? 2.5 : 2} />
                                 </span>
                                 {item.label}
-                            </div>
+                            </button>
                         ))}
                     </React.Fragment>
                 ))}
             </nav>
-            <div style={{ padding: '24px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: '0.75rem', opacity: 0.5 }}>
-                &copy; 2026 Admin Panel
+            <div className={styles.sidebarFooter}>
+                <span>v1.1.0</span>
+                <span>&copy; 2026 GramBahar</span>
             </div>
         </aside>
     );

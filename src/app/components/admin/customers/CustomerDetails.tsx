@@ -3,6 +3,7 @@
 import React from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, ShoppingBag, ShieldBan, UserCheck } from 'lucide-react';
 import { Card, Button, Badge, Table } from '@/components/ui';
+import styles from '@/components/admin/admin.module.css';
 
 interface CustomerDetailsProps {
     customerId: string;
@@ -37,18 +38,18 @@ export default function CustomerDetails({ customerId, onBack }: CustomerDetailsP
     return (
         <div style={{ animation: 'fadeIn 0.3s ease-in-out' }}>
             {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
+            <div className={styles.sectionHeader}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                     <Button variant="outline" onClick={onBack} style={{ padding: '8px 12px' }}>
-                        <ArrowLeft size={18} /> Back
+                        <ArrowLeft size={16} /> Back
                     </Button>
                     <div>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--foreground)', marginBottom: '4px' }}>
+                        <h2 className={styles.sectionHeading}>
                             Customer Profile
                         </h2>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.875rem', color: 'var(--slate-500)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8125rem', color: 'var(--slate-500)', marginTop: '2px' }}>
                             <span>Member since {customer.joinDate}</span>
-                            <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#cbd5e1' }}></span>
+                            <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--border-medium)' }}></span>
                             <Badge variant="success">{customer.status}</Badge>
                         </div>
                     </div>
