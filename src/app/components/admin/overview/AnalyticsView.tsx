@@ -1,10 +1,7 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const Card = dynamic(() => import('../../ui/base/Card'));
-const MiniChart = dynamic(() => import('../../ui/data/MiniChart'));
+import { Card, MiniChart } from '@/components/ui';
 
 export default function AnalyticsView() {
     const metrics = [

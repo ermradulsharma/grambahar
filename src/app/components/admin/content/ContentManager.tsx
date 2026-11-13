@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import {
     Plus,
     Trash2,
@@ -15,13 +14,7 @@ import {
     Star
 } from 'lucide-react';
 
-const Card = dynamic(() => import('../../ui/base/Card'));
-const Input = dynamic(() => import('../../ui/forms/Input'));
-const Button = dynamic(() => import('../../ui/base/Button'));
-const Tabs = dynamic(() => import('../../ui/navigation/Tabs'));
-const Table = dynamic(() => import('../../ui/data/Table'));
-const Modal = dynamic(() => import('../../ui/feedback/Modal'));
-const Badge = dynamic(() => import('../../ui/base/Badge'));
+import { Card, Input, Button, Tabs, Table, Modal, Badge } from '@/components/ui';
 
 export default function ContentManager() {
     const [activeTab, setActiveTab] = useState('hero');

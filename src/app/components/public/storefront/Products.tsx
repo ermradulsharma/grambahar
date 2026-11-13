@@ -6,6 +6,7 @@ import { PRODUCTS, Product } from '@/data/siteData';
 import { useCart } from '@/context/CartContext';
 import styles from './Products.module.css';
 import { ShoppingBag, Check } from 'lucide-react';
+import { formatPrice } from '@/core/Helpers';
 
 export default function Products() {
   const { addToCart } = useCart();
@@ -62,12 +63,12 @@ export default function Products() {
                   <h3 className={styles.productTitle}>{product.name}</h3>
 
                   <div className={styles.pricing}>
-                    <span className={styles.price}>₹ {product.price}.00</span>
-                    <span className={styles.originalPrice}>₹ {product.originalPrice}.00</span>
+                    <span className={styles.price}>{formatPrice(product.price)}</span>
+                    <span className={styles.originalPrice}>{formatPrice(product.originalPrice)}</span>
                   </div>
 
                   <div className={styles.bestPriceTag}>
-                    Best Price ₹ {product.bestPrice}.00 *
+                    Best Price {formatPrice(product.bestPrice)} *
                   </div>
 
                   <div className={styles.actions}>

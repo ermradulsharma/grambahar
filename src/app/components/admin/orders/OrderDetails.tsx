@@ -1,13 +1,8 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { ArrowLeft, Printer, Truck, CreditCard, User, Package, MapPin, Phone, Mail } from 'lucide-react';
-
-const Card = dynamic(() => import('../../ui/base/Card'));
-const Button = dynamic(() => import('../../ui/base/Button'));
-const Badge = dynamic(() => import('../../ui/base/Badge'));
-const Table = dynamic(() => import('../../ui/data/Table'));
+import { Card, Button, Badge, Table } from '@/components/ui';
 
 interface OrderDetailsProps {
     orderId: string;

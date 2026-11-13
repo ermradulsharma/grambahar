@@ -2,7 +2,7 @@ import React from 'react';
 import { POLICIES_DATA } from '@/data/policyData';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { Send } from 'lucide-react';
+import ContactInquiryForm from '@/components/public/storefront/ContactInquiryForm';
 
 export async function generateMetadata({
   params
@@ -113,75 +113,7 @@ export default async function DynamicSlugPage({
             >
               Send Us a Message
             </h3>
-            <form
-              action="https://wa.me/+919531536706"
-              method="GET"
-              target="_blank"
-              style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
-            >
-              <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: 6 }}>
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter your name"
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: 10,
-                    border: '1px solid var(--border-medium)',
-                    background: 'var(--background)',
-                    color: 'var(--foreground)'
-                  }}
-                />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: 6 }}>
-                  Phone / WhatsApp Number *
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="Enter phone number"
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: 10,
-                    border: '1px solid var(--border-medium)',
-                    background: 'var(--background)',
-                    color: 'var(--foreground)'
-                  }}
-                />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, marginBottom: 6 }}>
-                  Your Query or Bulk Inquiry *
-                </label>
-                <textarea
-                  rows={4}
-                  required
-                  placeholder="Write your requirement or questions here..."
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    borderRadius: 10,
-                    border: '1px solid var(--border-medium)',
-                    background: 'var(--background)',
-                    color: 'var(--foreground)'
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 8 }}
-              >
-                <Send size={18} />
-                Submit Inquiry via WhatsApp
-              </button>
-            </form>
+            <ContactInquiryForm />
           </div>
         )}
       </div>

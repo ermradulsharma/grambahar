@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import styles from './CartDrawer.module.css';
-import { X, Trash2, ShoppingBag, MessageCircle } from 'lucide-react';
+import { X, Trash2, MessageCircle } from 'lucide-react';
+import { formatPrice, validateCustomerInfo } from '@/core/Helpers';
 
 export default function CartDrawer() {
   const {
@@ -23,9 +24,16 @@ export default function CartDrawer() {
     phone: '',
     address: ''
   });
+  const [formError, setFormError] = useState<string | null>(null);
 
-  const handleCheckout = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleCheckout = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const validation = validateCustomerInfo(customer);
+    if (!validation.isValid) {
+      setFormError(validation.error || 'Please provide all delivery details.');
+      return;
+    }
+    setFormError(null);
     checkoutWhatsApp(customer);
   };
 
@@ -76,7 +84,7 @@ export default function CartDrawer() {
                     <div className={styles.itemDetails}>
                       <div className={styles.itemName}>{product.name}</div>
                       <span className={styles.itemWeight}>{product.weight}</span>
-                      <div className={styles.itemPrice}>₹ {product.price * quantity}.00</div>
+                      <div className={styles.itemPrice}>{formatPrice(product.price * quantity)}</div>
                     </div>
                     <div className={styles.itemControls}>
                       <div className={styles.quantityGroup}>
@@ -108,8 +116,13 @@ export default function CartDrawer() {
                 ))}
               </div>
 
-              <form onSubmit={handleCheckout} className={styles.customerForm}>
+              <form id="cart-checkout-form" onSubmit={handleCheckout} className={styles.customerForm}>
                 <div className={styles.customerFormTitle}>Delivery Details</div>
+                {formError && (
+                  <div style={{ color: '#dc2626', fontSize: '0.85rem', marginBottom: 10 }}>
+                    {formError}
+                  </div>
+                )}
                 <div className={styles.inputField}>
                   <label htmlFor="name">Your Name *</label>
                   <input
@@ -152,12 +165,12 @@ export default function CartDrawer() {
           <div className={styles.footer}>
             {totalSavings > 0 && (
               <div className={styles.savingsBadge}>
-                🎉 You are saving ₹{totalSavings}.00 on this order!
+                🎉 You are saving {formatPrice(totalSavings)} on this order!
               </div>
             )}
             <div className={styles.summaryRow}>
               <span>Subtotal:</span>
-              <span>₹ {subtotal}.00</span>
+              <span>{formatPrice(subtotal)}</span>
             </div>
             <div className={styles.summaryRow}>
               <span>Delivery:</span>
@@ -165,10 +178,11 @@ export default function CartDrawer() {
             </div>
             <div className={styles.summaryTotal}>
               <span>Total Payable:</span>
-              <span>₹ {subtotal}.00</span>
+              <span>{formatPrice(subtotal)}</span>
             </div>
             <button
-              onClick={handleCheckout}
+              type="submit"
+              form="cart-checkout-form"
               className={styles.whatsappCheckoutBtn}
             >
               <MessageCircle size={20} />

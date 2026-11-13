@@ -1,15 +1,7 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { Card, MiniChart } from '@/components/ui';
 import styles from '@/components/admin/admin.module.css';
-
-const Card = dynamic(() => import('../../ui/base/Card'), {
-    loading: () => <div className={styles.card}>...</div>
-});
-
-const MiniChart = dynamic(() => import('../../ui/data/MiniChart'), {
-    loading: () => null
-});
 
 export default function Stats() {
     const stats = [

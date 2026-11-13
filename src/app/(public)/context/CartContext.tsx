@@ -1,7 +1,14 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { Product } from '@/data/siteData';
+import {
+  buildWhatsAppOrderMessage,
+  getWhatsAppUrl,
+  safeGetStorage,
+  safeSetStorage,
+  CustomerInfo
+} from '@/core/Helpers';
 
 export interface CartItem {
   product: Product;
@@ -28,26 +35,23 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const isMounted = useRef(false);
 
-  // Load cart from localStorage on mount
+  // Safe client hydration from localStorage
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('gb_cart');
-      if (saved) {
-        setItems(JSON.parse(saved));
-      }
-    } catch (e) {
-      console.error('Failed to load cart', e);
+    const saved = safeGetStorage<CartItem[]>('gb_cart', []);
+    if (saved.length > 0) {
+      queueMicrotask(() => {
+        setItems(saved);
+      });
     }
+    isMounted.current = true;
   }, []);
 
-  // Sync to localStorage
+  // Sync to localStorage safely after initial mount
   useEffect(() => {
-    try {
-      localStorage.setItem('gb_cart', JSON.stringify(items));
-    } catch (e) {
-      console.error('Failed to save cart', e);
-    }
+    if (!isMounted.current) return;
+    safeSetStorage('gb_cart', items);
   }, [items]);
 
   const openCart = () => setIsOpen(true);
@@ -91,31 +95,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     0
   );
 
-  const checkoutWhatsApp = (customer: { name: string; phone: string; address: string }) => {
+  const checkoutWhatsApp = (customer: CustomerInfo) => {
     if (items.length === 0) return;
 
-    let message = `🛒 *New Order from GramBahar Website*\n\n`;
-    message += `*Customer Details:*\n`;
-    message += `• Name: ${customer.name || 'Not provided'}\n`;
-    message += `• Phone: ${customer.phone || 'Not provided'}\n`;
-    message += `• Delivery Address: ${customer.address || 'Not provided'}\n\n`;
-
-    message += `*Items Ordered:*\n`;
-    items.forEach((item, idx) => {
-      message += `${idx + 1}. ${item.product.name} (${item.product.weight})\n`;
-      message += `   Qty: ${item.quantity} × ₹${item.product.price} = ₹${item.quantity * item.product.price}\n`;
-    });
-
-    message += `\n*Total Amount:* ₹${subtotal}.00\n`;
-    if (totalSavings > 0) {
-      message += `*Total Savings:* ₹${totalSavings}.00\n`;
-    }
-    message += `*Delivery:* Free Pan-India Delivery 🚚\n\n`;
-    message += `Please confirm my order and share payment/delivery timeline. Thank you!`;
-
-    const encoded = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/+919531536706?text=${encoded}`;
-    window.open(whatsappUrl, '_blank');
+    const message = buildWhatsAppOrderMessage(items, customer, subtotal, totalSavings);
+    const whatsappUrl = getWhatsAppUrl(message);
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (

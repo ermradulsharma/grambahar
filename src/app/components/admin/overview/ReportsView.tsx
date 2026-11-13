@@ -1,12 +1,8 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { Download } from 'lucide-react';
-
-const Card = dynamic(() => import('../../ui/base/Card'));
-const Button = dynamic(() => import('../../ui/base/Button'));
-const Table = dynamic(() => import('../../ui/data/Table'));
+import { Card, Button, Table } from '@/components/ui';
 
 export default function ReportsView() {
     const reports = [

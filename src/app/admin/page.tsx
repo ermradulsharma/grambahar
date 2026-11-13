@@ -5,10 +5,9 @@ import dynamic from 'next/dynamic';
 import Sidebar from '@/components/admin/layout/Sidebar';
 import styles from '@/components/admin/admin.module.css';
 
-// Dynamic imports for core layout
-const AdminHeader = dynamic(() => import('@/components/admin/layout/AdminHeader'));
-const AdminFooter = dynamic(() => import('@/components/admin/layout/AdminFooter'));
-const Tabs = dynamic(() => import('@/components/ui/navigation/Tabs'));
+import AdminHeader from '@/components/admin/layout/AdminHeader';
+import AdminFooter from '@/components/admin/layout/AdminFooter';
+import { Tabs } from '@/components/ui';
 
 // Overview Sub-Tabs
 const Stats = dynamic(() => import('@/components/admin/overview/Stats'));

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './CustomerService.module.css';
 import { Phone, MessageCircle, Check } from 'lucide-react';
+import { CONTACT_INFO, getPhoneTelUrl, getWhatsAppUrl } from '@/core/Helpers';
 
 export default function CustomerService() {
   const points = [
@@ -22,12 +23,12 @@ export default function CustomerService() {
               Get prompt help on your queries, bulk orders, and deliveries with our dedicated support team, always around to answer your questions.
             </p>
             <div className={styles.ctaGroup}>
-              <a href="tel:+919531536706" className={styles.phoneBtn}>
+              <a href={getPhoneTelUrl()} className={styles.phoneBtn}>
                 <Phone size={18} />
-                Call +91 9531536706
+                Call {CONTACT_INFO.displayPhone}
               </a>
               <a
-                href="https://wa.me/+919531536706?text=Hello%20Grambahar%2C%20I%20have%20a%20query%20about%20my%20order."
+                href={getWhatsAppUrl(`Hello ${CONTACT_INFO.brandName}, I have a query about my order.`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}

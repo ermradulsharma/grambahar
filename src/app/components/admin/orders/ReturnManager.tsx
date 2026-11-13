@@ -1,11 +1,7 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const Table = dynamic(() => import('../../ui/data/Table'));
-const Badge = dynamic(() => import('../../ui/base/Badge'));
-const SearchInput = dynamic(() => import('../../ui/forms/SearchInput'));
+import { Table, Badge, SearchInput } from '@/components/ui';
 
 export default function ReturnManager() {
     const returns = [

@@ -2,24 +2,28 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { Table, SearchInput, Badge, Dropdown } from '@/components/ui';
+import { MOCK_ADMIN_ORDERS, AdminOrder } from '@/core/Helpers';
 
-const Table = dynamic(() => import('../../ui/data/Table'));
-const SearchInput = dynamic(() => import('../../ui/forms/SearchInput'));
-const Badge = dynamic(() => import('../../ui/base/Badge'));
-const Dropdown = dynamic(() => import('../../ui/forms/Dropdown'));
 const OrderDetails = dynamic(() => import('./OrderDetails'));
 
 export default function OrderManager() {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
-
-  const orders = [
-    { id: '#GB-1001', customer: 'Rahul Sharma', product: 'Premium Patali Gur', amount: '₹ 499', status: 'Paid', date: 'Feb 01, 2026' },
-    { id: '#GB-1002', customer: 'Priya Das', product: 'Super Saver Combo', amount: '₹ 899', status: 'Pending', date: 'Jan 31, 2026' },
-    { id: '#GB-1003', customer: 'Amit Sen', product: 'Bulk Family Pack', amount: '₹ 1,720', status: 'Paid', date: 'Jan 30, 2026' },
-    { id: '#GB-1004', customer: 'Sneha Roy', product: 'Premium Patali Gur', amount: '₹ 499', status: 'Paid', date: 'Jan 30, 2026' },
-  ];
+  const [orders] = useState<AdminOrder[]>(MOCK_ADMIN_ORDERS);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   const headers = ['Order ID', 'Date', 'Customer', 'Product', 'Amount', 'Status', 'Actions'];
+
+  const filteredOrders = orders.filter(order => {
+    const matchesSearch =
+      order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.customer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.product.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesStatus = statusFilter === 'all' || order.status.toLowerCase() === statusFilter.toLowerCase();
+    return matchesSearch && matchesStatus;
+  });
 
   if (selectedOrderId) {
     return <OrderDetails orderId={selectedOrderId} onBack={() => setSelectedOrderId(null)} />;
@@ -29,22 +33,25 @@ export default function OrderManager() {
     <div style={{ marginTop: '20px', animation: 'fadeIn 0.3s ease-in-out' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px', flexWrap: 'wrap', gap: '20px' }}>
         <h2 style={{ color: 'var(--foreground)', fontSize: '1.5rem', fontWeight: '700' }}>Order Fulfillment Center</h2>
-        <div style={{ display: 'flex', gap: '15px' }}>
-          <SearchInput placeholder="Search by Order ID..." />
+        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+          <SearchInput
+            placeholder="Search by Order ID, Customer..."
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+          />
           <Dropdown
-            label="Filter Date"
+            label="Filter Status"
             options={[
-              { label: 'All Time', value: 'all' },
-              { label: 'Today', value: 'today' },
-              { label: 'This Week', value: 'week' }
+              { label: 'All Statuses', value: 'all' },
+              { label: 'Paid', value: 'paid' },
+              { label: 'Pending', value: 'pending' }
             ]}
-            onSelect={(val) => console.log(val)}
+            onSelect={(val) => setStatusFilter(val)}
           />
         </div>
       </div>
 
       <Table headers={headers}>
-        {orders.map((order) => (
+        {filteredOrders.map((order) => (
           <tr key={order.id}>
             <td style={{ fontWeight: '600', color: 'var(--primary)' }}>{order.id}</td>
             <td style={{ color: 'var(--slate-500)', fontSize: '0.9rem' }}>{order.date}</td>

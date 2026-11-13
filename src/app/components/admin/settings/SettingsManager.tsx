@@ -1,11 +1,7 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-
-const Card = dynamic(() => import('../../ui/base/Card'));
-const Input = dynamic(() => import('../../ui/forms/Input'));
-const Button = dynamic(() => import('../../ui/base/Button'));
+import { Card, Input, Button } from '@/components/ui';
 
 import { Save, RefreshCw, Shield, Bell, ShoppingBag, Globe, Lock, AlertTriangle, CreditCard, Users, Database, Download, FileText, Mail, Palette, Smartphone, Truck, Scale, MessageSquare } from 'lucide-react';
 

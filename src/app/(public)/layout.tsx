@@ -3,18 +3,18 @@ import { Navbar, Footer, FloatingWhatsApp } from '@/components/public/layout';
 import CartDrawer from '@/components/public/cart/CartDrawer';
 
 export default function PublicSiteLayout({
-  children
+    children
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Navbar />
-      <CartDrawer />
-      {children}
-      <FloatingWhatsApp />
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <Navbar />
+            <CartDrawer />
+            {children}
+            <FloatingWhatsApp />
+            <Footer />
+        </>
+    );
 }
 
