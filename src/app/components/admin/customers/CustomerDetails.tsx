@@ -3,6 +3,7 @@
 import React from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, ShoppingBag, ShieldBan, UserCheck } from 'lucide-react';
 import { Card, Button, Badge, Table } from '@/components/ui';
+import { MOCK_ADMIN_CUSTOMERS } from '@/core/Helpers';
 import styles from '@/components/admin/admin.module.css';
 
 interface CustomerDetailsProps {
@@ -11,17 +12,17 @@ interface CustomerDetailsProps {
 }
 
 export default function CustomerDetails({ customerId, onBack }: CustomerDetailsProps) {
-    // Mock Data based on ID
+    const matched = MOCK_ADMIN_CUSTOMERS.find(c => c.id === customerId);
     const customer = {
         id: customerId,
-        name: 'Rahul Sharma',
-        email: 'rahul.sharma@example.com',
+        name: matched ? matched.name : 'Valued Buyer',
+        email: matched ? matched.email : 'buyer@example.com',
         phone: '+91 98765 43210',
         joinDate: 'Jan 15, 2025',
-        status: 'Active',
-        lifetimeValue: '₹ 12,450',
-        totalOrders: 15,
-        avgOrderValue: '₹ 830',
+        status: matched ? matched.status : 'Active',
+        lifetimeValue: matched ? matched.spent : '₹ 4,500',
+        totalOrders: matched ? matched.orders : 5,
+        avgOrderValue: '₹ 899',
         address: {
             line1: '12/4, Bose Pukur Road',
             city: 'Kolkata',
@@ -30,8 +31,7 @@ export default function CustomerDetails({ customerId, onBack }: CustomerDetailsP
         },
         orders: [
             { id: '#GB-1001', date: 'Feb 01, 2026', items: 2, total: '₹ 499', status: 'Paid' },
-            { id: '#GB-0982', date: 'Jan 20, 2026', items: 1, total: '₹ 850', status: 'Delivered' },
-            { id: '#GB-0950', date: 'Jan 05, 2026', items: 5, total: '₹ 2,100', status: 'Delivered' }
+            { id: '#GB-0982', date: 'Jan 20, 2026', items: 1, total: '₹ 850', status: 'Delivered' }
         ]
     };
 

@@ -4,7 +4,20 @@
  */
 
 import { safeGetStorage, safeSetStorage } from './storage';
-import { MOCK_ADMIN_ORDERS, MOCK_ADMIN_INVENTORY, AdminOrder, AdminInventoryItem } from './mockData';
+import {
+    MOCK_ADMIN_ORDERS,
+    MOCK_ADMIN_INVENTORY,
+    MOCK_ADMIN_COUPONS,
+    MOCK_ADMIN_CATEGORIES,
+    MOCK_ADMIN_REVIEWS,
+    MOCK_ADMIN_INQUIRIES,
+    AdminOrder,
+    AdminInventoryItem,
+    AdminCoupon,
+    AdminCategory,
+    AdminReview,
+    AdminInquiry
+} from './mockData';
 
 export interface InventoryMutationLog {
     id: string;
@@ -34,6 +47,11 @@ const STORAGE_KEYS = {
     RETURNS: 'gb_mock_returns',
     LOGS: 'gb_mock_tx_logs',
     CONTENT: 'gb_mock_content',
+    SETTINGS: 'gb_mock_settings',
+    COUPONS: 'gb_mock_coupons',
+    CATEGORIES: 'gb_mock_categories',
+    REVIEWS: 'gb_mock_reviews',
+    INQUIRIES: 'gb_mock_inquiries',
 };
 
 const DEFAULT_RETURNS: ReturnRecord[] = [
@@ -280,5 +298,148 @@ export function updateMockContent<K extends keyof typeof DEFAULT_CONTENT>(
     store[key] = value;
     safeSetStorage(STORAGE_KEYS.CONTENT, store);
     notifyMockStoreChange('content');
+}
+
+/* =========================================================================
+   4. GLOBAL SETTINGS STORE
+   ========================================================================= */
+
+export interface AdminSettings {
+    siteTitle: string;
+    metaDescription: string;
+    keywords: string;
+    deliveryCharge: number;
+    freeShippingThreshold: number;
+    currencySymbol: string;
+    lowStockThreshold: number;
+    emailAlerts: boolean;
+    smsAlerts: boolean;
+    autoInvoice: boolean;
+}
+
+export const DEFAULT_SETTINGS: AdminSettings = {
+    siteTitle: 'GramBahar | Authentic Taste of Nature',
+    metaDescription: 'GramBahar: Discover pure, farm-fresh Patali Gur & Nolen Gur – a Bengal delicacy with rich, natural sweetness.',
+    keywords: 'Patali Gur, Nolen Gur, Date Palm Jaggery, Farm Fresh, Authentic Bengal, Ranaghat',
+    deliveryCharge: 0,
+    freeShippingThreshold: 0,
+    currencySymbol: '₹',
+    lowStockThreshold: 10,
+    emailAlerts: true,
+    smsAlerts: true,
+    autoInvoice: true,
+};
+
+export function getMockSettings(): AdminSettings {
+    return safeGetStorage<AdminSettings>(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS);
+}
+
+export function updateMockSettings(settings: AdminSettings): void {
+    safeSetStorage(STORAGE_KEYS.SETTINGS, settings);
+    notifyMockStoreChange('settings');
+}
+
+/* =========================================================================
+   5. COUPONS & OFFERS STORE
+   ========================================================================= */
+
+export function getMockCoupons(): AdminCoupon[] {
+    return safeGetStorage<AdminCoupon[]>(STORAGE_KEYS.COUPONS, MOCK_ADMIN_COUPONS);
+}
+
+export function saveMockCoupon(coupon: AdminCoupon): void {
+    const list = getMockCoupons();
+    const index = list.findIndex(c => c.id === coupon.id);
+    if (index >= 0) {
+        list[index] = coupon;
+    } else {
+        list.unshift(coupon);
+    }
+    safeSetStorage(STORAGE_KEYS.COUPONS, list);
+    notifyMockStoreChange('coupons');
+}
+
+export function toggleMockCoupon(id: string): void {
+    const list = getMockCoupons();
+    const index = list.findIndex(c => c.id === id);
+    if (index >= 0) {
+        list[index].isActive = !list[index].isActive;
+        safeSetStorage(STORAGE_KEYS.COUPONS, list);
+        notifyMockStoreChange('coupons');
+    }
+}
+
+export function deleteMockCoupon(id: string): void {
+    const list = getMockCoupons().filter(c => c.id !== id);
+    safeSetStorage(STORAGE_KEYS.COUPONS, list);
+    notifyMockStoreChange('coupons');
+}
+
+/* =========================================================================
+   6. CATEGORIES & COLLECTIONS STORE
+   ========================================================================= */
+
+export function getMockCategories(): AdminCategory[] {
+    return safeGetStorage<AdminCategory[]>(STORAGE_KEYS.CATEGORIES, MOCK_ADMIN_CATEGORIES);
+}
+
+export function saveMockCategory(category: AdminCategory): void {
+    const list = getMockCategories();
+    const index = list.findIndex(c => c.id === category.id);
+    if (index >= 0) {
+        list[index] = category;
+    } else {
+        list.push(category);
+    }
+    safeSetStorage(STORAGE_KEYS.CATEGORIES, list);
+    notifyMockStoreChange('categories');
+}
+
+export function deleteMockCategory(id: string): void {
+    const list = getMockCategories().filter(c => c.id !== id);
+    safeSetStorage(STORAGE_KEYS.CATEGORIES, list);
+    notifyMockStoreChange('categories');
+}
+
+/* =========================================================================
+   7. REVIEWS & RATINGS STORE
+   ========================================================================= */
+
+export function getMockReviews(): AdminReview[] {
+    return safeGetStorage<AdminReview[]>(STORAGE_KEYS.REVIEWS, MOCK_ADMIN_REVIEWS);
+}
+
+export function updateMockReviewStatus(id: string, status: 'Approved' | 'Pending' | 'Rejected'): void {
+    const list = getMockReviews();
+    const index = list.findIndex(r => r.id === id);
+    if (index >= 0) {
+        list[index].status = status;
+        safeSetStorage(STORAGE_KEYS.REVIEWS, list);
+        notifyMockStoreChange('reviews');
+    }
+}
+
+export function deleteMockReview(id: string): void {
+    const list = getMockReviews().filter(r => r.id !== id);
+    safeSetStorage(STORAGE_KEYS.REVIEWS, list);
+    notifyMockStoreChange('reviews');
+}
+
+/* =========================================================================
+   8. CUSTOMER INQUIRIES & LEADS STORE
+   ========================================================================= */
+
+export function getMockInquiries(): AdminInquiry[] {
+    return safeGetStorage<AdminInquiry[]>(STORAGE_KEYS.INQUIRIES, MOCK_ADMIN_INQUIRIES);
+}
+
+export function updateMockInquiryStatus(id: string, status: 'New' | 'In Progress' | 'Resolved'): void {
+    const list = getMockInquiries();
+    const index = list.findIndex(i => i.id === id);
+    if (index >= 0) {
+        list[index].status = status;
+        safeSetStorage(STORAGE_KEYS.INQUIRIES, list);
+        notifyMockStoreChange('inquiries');
+    }
 }
 

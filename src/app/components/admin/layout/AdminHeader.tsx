@@ -1,24 +1,46 @@
 import { useState } from 'react';
 import styles from '@/components/admin/admin.module.css';
 import { useTheme } from '@/context/ThemeContext';
-import { Sun, Moon, User, LogOut, Bell } from 'lucide-react';
+import { Sun, Moon, User, LogOut, Bell, Menu } from 'lucide-react';
 
 interface AdminHeaderProps {
     activeTab: string;
+    onToggleSidebar?: () => void;
 }
 
-export default function AdminHeader({ activeTab }: AdminHeaderProps) {
+export default function AdminHeader({ activeTab, onToggleSidebar }: AdminHeaderProps) {
     const { theme, toggleTheme, mounted } = useTheme();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
     const formatTabTitle = (tab: string) => {
-        return tab.charAt(0).toUpperCase() + tab.slice(1).replace(/([A-Z])/g, ' $1');
+        switch (tab) {
+            case 'overview': return 'Dashboard Overview';
+            case 'orders': return 'Orders & Returns';
+            case 'products': return 'Products & Inventory';
+            case 'categories': return 'Product Categories';
+            case 'customers': return 'Customer Directory';
+            case 'coupons': return 'Discounts & Coupons';
+            case 'reviews': return 'Reviews & Leads';
+            case 'content': return 'Website Content';
+            case 'settings': return 'Store Settings';
+            default: return tab.charAt(0).toUpperCase() + tab.slice(1).replace(/([A-Z])/g, ' $1');
+        }
     };
 
     return (
         <header className={styles.fixedHeader}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                {onToggleSidebar && (
+                    <button
+                        type="button"
+                        className={styles.mobileMenuBtn}
+                        onClick={onToggleSidebar}
+                        aria-label="Toggle navigation drawer"
+                    >
+                        <Menu size={22} />
+                    </button>
+                )}
                 <h1 className={styles.headerTitle}>
                     {formatTabTitle(activeTab)}
                 </h1>

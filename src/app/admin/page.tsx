@@ -20,11 +20,15 @@ const ReturnManager = dynamic(() => import('@/components/admin/orders/ReturnMana
 
 // Main Sidebar Tabs
 const ProductList = dynamic(() => import('@/components/admin/products/ProductList'));
-const ContentManager = dynamic(() => import('@/components/admin/content/ContentManager'));
+const CategoryManager = dynamic(() => import('@/components/admin/categories/CategoryManager'));
 const CustomerList = dynamic(() => import('@/components/admin/customers/CustomerList'));
+const CouponManager = dynamic(() => import('@/components/admin/coupons/CouponManager'));
+const ReviewManager = dynamic(() => import('@/components/admin/reviews/ReviewManager'));
+const ContentManager = dynamic(() => import('@/components/admin/content/ContentManager'));
 const SettingsManager = dynamic(() => import('@/components/admin/settings/SettingsManager'));
 
 export default function AdminDashboard() {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('overview');
     const [overviewSubTab, setOverviewSubTab] = useState('snapshot');
     const [ordersSubTab, setOrdersSubTab] = useState('management');
@@ -42,9 +46,17 @@ export default function AdminDashboard() {
 
     return (
         <div className={styles.adminContainer}>
-            <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+            <Sidebar
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+            />
             <div className={styles.mainWrapper}>
-                <AdminHeader activeTab={activeTab} />
+                <AdminHeader
+                    activeTab={activeTab}
+                    onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+                />
 
                 <main className={styles.mainContent}>
                     {/* OVERVIEW SECTION */}
@@ -79,8 +91,17 @@ export default function AdminDashboard() {
                     {/* PRODUCTS SECTION */}
                     {activeTab === 'products' && <ProductList />}
 
+                    {/* CATEGORIES SECTION */}
+                    {activeTab === 'categories' && <CategoryManager />}
+
                     {/* CUSTOMERS SECTION */}
                     {activeTab === 'customers' && <CustomerList />}
+
+                    {/* MARKETING & COUPONS SECTION */}
+                    {activeTab === 'coupons' && <CouponManager />}
+
+                    {/* REVIEWS & LEADS SECTION */}
+                    {activeTab === 'reviews' && <ReviewManager />}
 
                     {/* SETTINGS SECTION */}
                     {activeTab === 'settings' && <SettingsManager />}
